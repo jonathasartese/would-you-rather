@@ -6,11 +6,11 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h3 className='center'>Your Timeline</h3>
+        <h3 className='center'>Unanswered</h3>
         <ul className='dashboard-list'>
-          {this.props.questionid.map((id) => (
+          {this.props.questionIds.map((id) => (
             <li key={id}>
-              <Question id={id}/>
+              <Question id={id} />
             </li>
           ))}
         </ul>
@@ -19,10 +19,10 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps ({ tweets }) {
+function mapStateToProps ({ questions }) {
   return {
-    tweetIds: Object.keys(tweets)
-      .sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
+    questionIds: Object.keys(questions)
+      .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
   }
 }
 
