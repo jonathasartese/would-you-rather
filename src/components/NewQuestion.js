@@ -21,10 +21,10 @@ class NewQuestion extends Component {
 
         const { text1 } = this.state.text1
         const { text2 } = this.state.text2
-        const {}
     
         this.setState(() => ({
-            text: ''
+            text1: '',
+            text2: ''
         }))
     }
 
