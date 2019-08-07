@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatQuestion } from '../utils/helpers'
+import { handleAnswerQuestion} from '../actions/questions'
 /*import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
 import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
 import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
-import { handleToggleTweet } from '../actions/tweets'
 import { Link, withRouter } from 'react-router-dom'
 */
 class Question extends Component {
@@ -25,8 +25,15 @@ class Question extends Component {
   }
 
   handleSubmit = (e) => {
-    alert('Escolhido: ' + this.state.choose);
     e.preventDefault();
+    const {dispatch , question , authedUser} = this.props
+    const answer = this.state.choose
+
+    dispatch(handleAnswerQuestion({
+      authedUser: authedUser,
+      qid: question.id,
+      answer: answer
+    }))
   }
   render() {
     const { question } = this.props
@@ -48,19 +55,21 @@ class Question extends Component {
                 <p>
                   <input 
                     type='radio' 
-                    value={optionOne.text} 
-                    checked={this.state.choose === optionOne.text} 
+                    value="optionOne" 
+                    checked={this.state.choose === "optionOne"} 
                     onChange={this.handleInputChange}/>
                   {optionOne.text}
                 </p>
+                <h3>{optionOne.votes.length}</h3>
                 <p>
                   <input 
                     type='radio' 
-                    value={optionTwo.text}  
-                    checked={this.state.choose === optionTwo.text}
+                    value="optionTwo"
+                    checked={this.state.choose === "optionTwo"}
                     onChange={this.handleInputChange}/>
                   {optionTwo.text}
                 </p>
+                <h3>{optionTwo.votes.length}</h3>
               </div>
               <button type='submit' onClick={this.handleSubmit}>VOTE</button>
             </div>
