@@ -9,6 +9,9 @@ class User extends Component {
         name, avatarURL, answers, questions
     } = user
 
+    const answeredtotal = Object.keys(answers).length
+    const createdtotal = Object.keys(questions).length
+    const score = answeredtotal + createdtotal
     return (
         <div className='tweet'>
             <img 
@@ -17,14 +20,11 @@ class User extends Component {
                 className='avatar'
             />
             <div className='tweet-indo'>
-              <span>{name}</span>
+              <h3>{name}</h3>
               <div>
-                <p>
-                  {console.log(answers)}
-                </p>
-                <p>
-                  {console.log(questions)}
-                </p>
+                <p> Answered questions : {answeredtotal}</p>
+                <p> Created questions  : {createdtotal}</p>
+                <p> Score : {score}</p>
               </div>
             </div>
         </div>
