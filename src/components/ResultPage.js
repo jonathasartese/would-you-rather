@@ -46,6 +46,8 @@ class ResultPage extends Component {
     
     function mapStateToProps ({authedUser, users, questions}, props) {
       const { id } = props.match.params
+      console.log(id)
+      console.log(props)
       const question = questions[id]
       
       return {

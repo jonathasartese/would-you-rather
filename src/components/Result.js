@@ -5,11 +5,11 @@ import { Button , Row , Col} from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 
 
-class Question extends Component {
+class Result extends Component {
 
   toQuestion = (e, id) => {
     e.preventDefault()
-    this.props.history.push(`/question/${id}`)
+    this.props.history.push(`/results/${id}`)
   }
   render() {
     const { question } = this.props
@@ -39,7 +39,7 @@ class Question extends Component {
                   -> {optionTwo.text}
                   </p>
                   <Button className='btn' onClick={(e) => this.toQuestion(e, question.id)}>
-                  View poll
+                  View Answer
                   </Button>
                 </div>
             </Col>
@@ -58,5 +58,4 @@ function mapStateToProps ({authedUser, users, questions}, { id }) {
       : null
   }
 }
-export default withRouter(connect(mapStateToProps)(Question))
-
+export default withRouter(connect(mapStateToProps)(Result))

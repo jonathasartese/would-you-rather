@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAnswerQuestion} from '../actions/questions'
 import { formatQuestion } from '../utils/helpers'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form , Row , Col } from 'react-bootstrap'
 
 
 class QuestionPage extends Component {
@@ -33,7 +33,12 @@ class QuestionPage extends Component {
           answer: answer,
         }))
 
+        this.setState(() => ({
+          choose: '',
+        }))
+
         this.props.history.push(`/results/${id}`)
+
       }
       render() {
         const { question } = this.props
@@ -43,40 +48,42 @@ class QuestionPage extends Component {
 
         return (
             <div className='tweet'>
-                <img 
-                    src={avatar}
-                    alt={`Avatar of ${name}`}
-                    className='avatar'
-                />
-                <div className='tweet-info'>
-                  <h2 className='center'>{name}</h2>
-                  <h3>Would you rather...</h3>
-                  <div>
-                    <p class="container-radio">
+              <Row>
+                <Col>
+                  <img 
+                      src={avatar}
+                      alt={`Avatar of ${name}`}
+                      className='avatar'
+                  />
+                </Col>
+                <Col>
+                  <div className='tweet-info'>
+                    <h2 className='center'>{name} asks:</h2>
+                    <h3>Would you rather...</h3>
+                    <div>
                       <Form.Check 
                         type='radio' 
                         value="optionOne" 
                         checked={this.state.choose === "optionOne"} 
                         onChange={this.handleInputChange}
                         label={optionOne.text}/>
-                      
-                    </p>
-                    <p class="container-radio">
                       <Form.Check 
                         type='radio' 
                         value="optionTwo"
                         checked={this.state.choose === "optionTwo"}
                         onChange={this.handleInputChange}
                         label={optionTwo.text}/>
-                    </p>
+                    </div>
+                    <Button 
+                      className='btn' 
+                      type='submit' 
+                      onClick={(e) => this.handleSubmit(e, question.id)}
+                      disabled={!this.state.choose}>
+                      Submit
+                      </Button>
                   </div>
-                  <Button 
-                    className='btn' 
-                    type='submit' 
-                    onClick={(e) => this.handleSubmit(e, question.id)}>
-                    Submit
-                    </Button>
-                </div>
+                </Col>
+                </Row>
             </div>
         )
       }
