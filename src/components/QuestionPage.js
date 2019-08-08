@@ -11,7 +11,6 @@ class QuestionPage extends Component {
         super(props);
         this.state = {
           choose: '',
-          toResult: false,
         }
     
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -24,7 +23,7 @@ class QuestionPage extends Component {
         });
       }
     
-      handleSubmit = (e) => {
+      handleSubmit = (e, id) => {
         e.preventDefault();
         const {dispatch , question , authedUser} = this.props
         const answer = this.state.choose
@@ -35,21 +34,13 @@ class QuestionPage extends Component {
           answer: answer,
         }))
 
-        this.setState(() => ({
-            choose: '',
-            toResult: true,
-          }))
+        this.props.history.push(`/results/${id}`)
       }
       render() {
         const { question } = this.props
-        const { toResult } = this.state
         const {
             name, avatar, optionOne, optionTwo 
         } = question
-
-        if( toResult === true) {
-            return <Redirect to='/' />
-        }
 
         return (
             <div className='tweet'>
@@ -70,7 +61,6 @@ class QuestionPage extends Component {
                         onChange={this.handleInputChange}/>
                       {optionOne.text}
                     </p>
-                    <h3>{optionOne.votes.length}</h3>
                     <p>
                       <input 
                         type='radio' 
@@ -80,7 +70,7 @@ class QuestionPage extends Component {
                       {optionTwo.text}
                     </p>
                   </div>
-                  <button className='btn' type='submit' onClick={this.handleSubmit}>VOTE</button>
+                  <button className='btn' type='submit' onClick={(e) => this.handleSubmit(e, question.id)}>VOTE</button>
                 </div>
             </div>
         )
