@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { handleAnswerQuestion} from '../actions/questions'
 import { formatQuestion } from '../utils/helpers'
-import { Redirect } from 'react-router-dom'
+import { ProgressBar } from 'react-bootstrap';
+
 
 
 
@@ -13,6 +13,10 @@ class ResultPage extends Component {
             name, avatar, optionOne, optionTwo 
         } = question
 
+        const total = optionOne.votes.length + optionTwo.votes.length
+        const progop1 = Math.round((optionOne.votes.length/total)*100)
+        const progop2 = Math.round((optionTwo.votes.length/total)*100)
+
         return (
             <div className='tweet'>
                 <img 
@@ -21,17 +25,18 @@ class ResultPage extends Component {
                     className='avatar'
                 />
                 <div className='tweet-indo'>
-                  <span>{name}</span>
-                  <div>Would you rather...</div>
+                  <h2 className='center'>Results:</h2>
                   <div>
-                    <p>
-                      {optionOne.text} - 
-                      {optionOne.votes.length}
-                    </p>
-                    <p>
-                      {optionTwo.text} - 
-                      {optionTwo.votes.length}
-                    </p>
+                    <h4>Would you rather be {optionOne.text} ? </h4>
+                    <div> 
+                    <ProgressBar now={progop1} label={`${progop1}%`} />
+                    </div>
+                  </div>
+                  <div>
+                    <h4> Would you rather be {optionTwo.text} ? </h4>
+                    <div> 
+                    <ProgressBar now={progop2} label={`${progop2}%`}/>
+                    </div>
                   </div>
                 </div>
             </div>

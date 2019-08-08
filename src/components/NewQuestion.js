@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddQuestion} from '../actions/questions'
 import { Redirect } from 'react-router-dom'
+import { Button , Form} from 'react-bootstrap'
 
 class NewQuestion extends Component {
     state ={
@@ -42,8 +43,8 @@ class NewQuestion extends Component {
         <h3 className='center'>Create New Question</h3>
         <p>Complete the question:</p>
         <h3>Would you rather ...</h3>
-        <form className='new-tweet' onSubmit={this.handleSubmit}>
-            <textarea 
+        <Form className='new-tweet' onSubmit={this.handleSubmit}>
+            <Form.Control 
                 id="optionOne"
                 placeholder="Enter Option One Text Here"
                 value={optionOne}
@@ -53,7 +54,7 @@ class NewQuestion extends Component {
                 required
             />
             <h3 className='center'>or</h3>
-            <textarea 
+            <Form.Control 
                 id="optionTwo"
                 placeholder="Enter Option Two Text Here"
                 value={optionTwo}
@@ -63,13 +64,13 @@ class NewQuestion extends Component {
                 required
             />
             <p></p>
-            <button
+            <Button
             className='btn'
             type='submit'
             disabled={isdisabled}>
                 Submit
-            </button>
-        </form>
+            </Button>
+        </Form>
       </div>
     )
   }

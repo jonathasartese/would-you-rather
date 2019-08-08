@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatQuestion } from '../utils/helpers'
+import {Button} from 'react-bootstrap'
+import { withRouter } from 'react-router-dom'
 
-import { Link, withRouter } from 'react-router-dom'
-/*import TiArrowBackOutline from 'react-icons/lib/ti/arrow-back-outline'
-import TiHeartOutline from 'react-icons/lib/ti/heart-outline'
-import TiHeartFullOutline from 'react-icons/lib/ti/heart-full-outline'
-*/
+
 class Question extends Component {
 
   toQuestion = (e, id) => {
@@ -16,7 +14,7 @@ class Question extends Component {
   render() {
     const { question } = this.props
     const {
-        name, avatar, optionOne, optionTwo, id
+        name, avatar, optionOne, optionTwo
     } = question
 
     return (
@@ -26,19 +24,20 @@ class Question extends Component {
                 alt={`Avatar of ${name}`}
                 className='avatar'
             />
-            <div className='tweet-indo'>
-              <span>{name}</span>
-              <div>Would you rather...</div>
+            <div className='tweet-info'>
+              <h2 className='center'>{name} asks:</h2>
+              <h3>Would you rather...</h3>
               <div>
                 <p>
-                {optionOne.text}
+                -> {optionOne.text}
                 </p>
+                <p>  or </p>
                 <p>
-                  {optionTwo.text}
+                 -> {optionTwo.text}
                 </p>
-                <button className='btn' onClick={(e) => this.toQuestion(e, question.id)}>
-                Answer the question
-                </button>
+                <Button className='btn' onClick={(e) => this.toQuestion(e, question.id)}>
+                View poll
+                </Button>
               </div>
             </div>
         </div>

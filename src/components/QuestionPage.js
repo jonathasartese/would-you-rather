@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAnswerQuestion} from '../actions/questions'
 import { formatQuestion } from '../utils/helpers'
-import { Redirect } from 'react-router-dom'
-
+import { Button, Form } from 'react-bootstrap'
 
 
 class QuestionPage extends Component {
@@ -49,28 +48,34 @@ class QuestionPage extends Component {
                     alt={`Avatar of ${name}`}
                     className='avatar'
                 />
-                <div className='tweet-indo'>
-                  <span>{name}</span>
-                  <div>Would you rather...</div>
+                <div className='tweet-info'>
+                  <h2 className='center'>{name}</h2>
+                  <h3>Would you rather...</h3>
                   <div>
-                    <p>
-                      <input 
+                    <p class="container-radio">
+                      <Form.Check 
                         type='radio' 
                         value="optionOne" 
                         checked={this.state.choose === "optionOne"} 
-                        onChange={this.handleInputChange}/>
-                      {optionOne.text}
+                        onChange={this.handleInputChange}
+                        label={optionOne.text}/>
+                      
                     </p>
-                    <p>
-                      <input 
+                    <p class="container-radio">
+                      <Form.Check 
                         type='radio' 
                         value="optionTwo"
                         checked={this.state.choose === "optionTwo"}
-                        onChange={this.handleInputChange}/>
-                      {optionTwo.text}
+                        onChange={this.handleInputChange}
+                        label={optionTwo.text}/>
                     </p>
                   </div>
-                  <button className='btn' type='submit' onClick={(e) => this.handleSubmit(e, question.id)}>VOTE</button>
+                  <Button 
+                    className='btn' 
+                    type='submit' 
+                    onClick={(e) => this.handleSubmit(e, question.id)}>
+                    Submit
+                    </Button>
                 </div>
             </div>
         )

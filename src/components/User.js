@@ -6,7 +6,7 @@ class User extends Component {
   render() {
     const { user } = this.props
     const {
-        name, avatarURL, answers, questions, id
+        name, avatarURL, answers, questions
     } = user
 
     return (
