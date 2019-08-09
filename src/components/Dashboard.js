@@ -36,25 +36,40 @@ class Dashboard extends Component {
             <Nav.Link onClick={(e) => this.handletoAnswer(e)} >Answered Questions</Nav.Link>
           </Nav.Item>
         </Nav>
+        {this.state.toQuestion === true
+        ?
         <ul className='dashboard-list'>
-          {this.props.questionIds.map((id) => (
+          {this.props.questionsUnansweredIds.map((id) => (
             <li key={id}>
-            {this.state.toQuestion === true
-              ? <Question id={id} />
-              : <Result id={id} /> 
-            }
+            <Question id={id} />
             </li>
           ))}
         </ul>
+        : 
+          <ul className='dashboard-list'>
+          {this.props.questionsAnsweredIds.map((id) => (
+            <li key={id}>
+            <Result id={id} /> 
+            </li>
+            ))}
+          </ul>
+        }
       </div>
     )
   }
 }
 
-function mapStateToProps ({ users, questions }) {
+function mapStateToProps ({ users, questions , authedUser}) {
   return {
-    questionIds: Object.keys(questions)
-      .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+    questionsUnansweredIds: Object.keys(questions) 
+    .filter((id) => !questions[id].optionOne.votes.includes(authedUser) 
+    && !questions[id].optionTwo.votes.includes(authedUser))
+    .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
+
+    questionsAnsweredIds: Object.keys(questions) 
+    .filter((id) => questions[id].optionOne.votes.includes(authedUser) 
+    || questions[id].optionTwo.votes.includes(authedUser))
+    .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
   }
 }
 
