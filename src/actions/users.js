@@ -9,22 +9,30 @@ export function receiveUsers (users) {
     }
 }
 
-export function addQuestionToUser(userid, questionid){
+export function addQuestionToUser(question){
     return {
         type: ADD_QUESTION_TO_USER,
-        userid,
-        questionid,
+        question,
     }
 }
 
-export function addAnswerToUser(userid, questionid, answer){
+export function addAnswerToUser(authedUser, qid, answer){
     return {
         type: ADD_ANSWER_TO_USER,
-        userid,
-        questionid,
+        authedUser,
+        qid,
         answer,
     }
 }
 
-//handle ADD_QUESTION_TO_USER
-//handle ADD_ANSWER_TO_USER
+export function handleAddQuestionToUser(question){
+    return (dispatch) => {
+        dispatch(addQuestionToUser(question))
+    }
+}
+
+export function handleAddAnswerToUser(info){
+    return (dispatch) => {
+        dispatch(addAnswerToUser(info))
+    }
+}

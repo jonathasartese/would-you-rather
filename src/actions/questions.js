@@ -1,5 +1,7 @@
 import { saveQuestion , saveQuestionAnswer} from '../utils/api'
 import { hideLoading } from 'react-redux-loading-bar'
+import { handleAddQuestionToUser, handleAddAnswerToUser } from './users';
+
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
@@ -29,7 +31,9 @@ export function handleAddQuestion (optionOne, optionTwo) {
       optionTwoText: optionTwo,
       author: authedUser,
     })
-      .then((question) => dispatch(addQuestion(question)))
+      .then((question) => { 
+        dispatch(addQuestion(question))
+        dispatch(handleAddQuestionToUser(question))})
       .then(() => dispatch(hideLoading()))
   }
 }
@@ -53,7 +57,9 @@ export function handleAnswerQuestion (info) {
       qid: info.qid,
       answer: info.answer,
     })
-      .then((res) => dispatch(answerQuestion(res)))
+      .then((res) => {
+        dispatch(answerQuestion(res))
+        dispatch(handleAddAnswerToUser(res))})
       .then(() => dispatch(hideLoading()))
   }
 }
