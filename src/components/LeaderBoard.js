@@ -5,9 +5,7 @@ import User from './User'
 
 class LeaderBoard extends Component {
   render() {
-    const { usersIds, users , questions} = this.props
-    console.log(users)
-    console.log(questions)
+    const { usersIds } = this.props
     return (
       <div>
         <h3 className='center'>LeaderBoard</h3>

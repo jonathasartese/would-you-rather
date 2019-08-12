@@ -13,24 +13,26 @@ import Nav from './Nav'
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData())
+    const loguser = this.props.user || null
+    this.props.dispatch(handleInitialData(loguser))
   }
   render() {
+    
     return (
       <Router>
         <Fragment>
           <LoadingBar />
           <div className='container'>
             <Nav />
-            {this.props.loading === true
-              ? null
+            {console.log('app ',  this.props.user)}
+            {this.props.user === null
+              ? <div> <Route path='/' component={Login} /> </div>
               : <div>
                   <Route path='/' exact component={Dashboard} />
                   <Route path='/question/:id' component={QuestionPage} />
                   <Route path='/results/:id' component={ResultPage} />
                   <Route path='/add' component={NewQuestion} />
                   <Route path='/leader' component={LeaderBoard} />
-                  <Route path='/login' component={Login} />
                 </div>}
           </div>
         </Fragment>
@@ -39,33 +41,10 @@ class App extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser }) {
-  return {
-    loading: authedUser === null
+  function mapStateToProps ({ authedUser }) {
+    return {
+      user: authedUser
+    }
   }
-}
 
 export default connect(mapStateToProps)(App)
-
-/*
-
-      <Router>
-        <Fragment>
-          <LoadingBar />
-          <div className='container'>
-            <Nav />
-            {this.props.loading === true
-              ? null
-              : <div>
-                  <Route path='/' exact component={Dashboard} />
-                  <Route path='/question/:id' component={QuestionPage} />
-                  <Route path='/add' component={NewQuestion} />
-                  <Route path='/leader' component={LeaderBoard} />
-                  <Route path='/login' component={Login} />
-                </div>}
-          </div>
-        </Fragment>
-      </Router>
-
-*/
-

@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default function Nav () {
+class Nav extends Component {
+  render() {
   return (
     <nav className='nav'>
       <ul>
@@ -21,11 +23,29 @@ export default function Nav () {
           </NavLink>
         </li>
         <li>
+        {console.log('ligon', this.props.user)}
+        {this.props.user === null
+          ?
           <NavLink to='/login' activeClassName='active'>
-            Login
+          Login
           </NavLink>
+          : 
+          <NavLink to='/login' activeClassName='active'>
+            Logout
+          </NavLink>
+        }
         </li>
       </ul>
     </nav>
   )
+
+  }
 }
+
+function mapStateToProps ({ authedUser }) {
+  return {
+    user: authedUser
+  }
+}
+
+export default connect()(Nav)

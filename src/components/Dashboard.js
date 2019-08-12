@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
-import ResultPage from './ResultPage';
 import Result from './Result';
 import { Nav } from 'react-bootstrap'
 
