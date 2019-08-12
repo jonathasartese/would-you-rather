@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
@@ -26,7 +26,10 @@ class App extends Component {
             <Nav />
             {console.log('app ',  this.props.user)}
             {this.props.user === null
-              ? <div> <Route path='/' component={Login} /> </div>
+              ? <div> 
+                  <Route path='/' component={Login} /> 
+                  <Redirect to="/login"/>
+                </div>
               : <div>
                   <Route path='/' exact component={Dashboard} />
                   <Route path='/question/:id' component={QuestionPage} />
